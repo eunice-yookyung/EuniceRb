@@ -1,0 +1,129 @@
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\bin\expcontrol.exe.config
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\obj\Release\expcontrol.exe
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\obj\Release\expcontrol.xml
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\bin\expcontrol.exe
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\bin\expcontrol.xml
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\bin\controldll.dll
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\bin\controldll.pdb
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\bin\controldll.xml
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\obj\Release\expcontrol.frmAnalogPreview.resources
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\obj\Release\expcontrol.frmDigitalPreview.resources
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\obj\Release\expcontrol.frmGUI.resources
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\obj\Release\expcontrol.Resources.resources
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\obj\Release\expcontrol.vbproj.GenerateResource.Cache
+C:\Documents and Settings\Waseem\My Documents\Visual Studio 2005\Projects\ExpControl\obj\Release\expcontrol.exe.licenses
+C:\software\ExpControl\bin\expcontrol.exe.config
+C:\software\ExpControl\obj\Debug\expcontrol.exe
+C:\software\ExpControl\obj\Debug\expcontrol.xml
+C:\software\ExpControl\obj\Debug\expcontrol.pdb
+C:\software\ExpControl\bin\expcontrol.exe
+C:\software\ExpControl\bin\expcontrol.pdb
+C:\software\ExpControl\bin\expcontrol.xml
+C:\software\ExpControl\bin\controldll.dll
+C:\software\ExpControl\bin\NationalInstruments.VisaNS.dll
+C:\software\ExpControl\bin\NationalInstruments.Common.Native.dll
+C:\software\ExpControl\bin\NationalInstruments.VisaNS.xml
+C:\software\ExpControl\bin\controldll.pdb
+C:\software\ExpControl\bin\controldll.xml
+C:\software\ExpControl\obj\Debug\ResolveAssemblyReference.cache
+C:\software\ExpControl\obj\Debug\expcontrol.frmAnalogPreview.resources
+C:\software\ExpControl\obj\Debug\expcontrol.frmDigitalPreview.resources
+C:\software\ExpControl\obj\Debug\expcontrol.frmGUI.resources
+C:\software\ExpControl\obj\Debug\expcontrol.Resources.resources
+C:\software\ExpControl\obj\Debug\expcontrol.vbproj.GenerateResource.Cache
+C:\software\ExpControl\obj\Debug\expcontrol.exe.licenses
+C:\bin\expcontrol.exe.config
+C:\bin\expcontrol.exe
+C:\bin\expcontrol.xml
+C:\software\ExpControl\obj\Release\ResolveAssemblyReference.cache
+C:\software\ExpControl\obj\Release\expcontrol.frmAnalogPreview.resources
+C:\software\ExpControl\obj\Release\expcontrol.frmDigitalPreview.resources
+C:\software\ExpControl\obj\Release\expcontrol.frmGUI.resources
+C:\software\ExpControl\obj\Release\expcontrol.Resources.resources
+C:\software\ExpControl\obj\Release\expcontrol.vbproj.GenerateResource.Cache
+C:\software\ExpControl\obj\Release\expcontrol.exe.licenses
+C:\bin2\expcontrol.exe.config
+C:\bin2\expcontrol.exe
+C:\bin2\expcontrol.xml
+C:\software\ExpControl\obj\Release\expcontrol.exe
+C:\software\ExpControl\obj\Release\expcontrol.xml
+C:\bin3\expcontrol.exe.config
+C:\bin3\expcontrol.exe
+C:\bin3\expcontrol.xml
+C:\bin4\expcontrol.exe.config
+C:\bin4\expcontrol.exe
+C:\bin4\expcontrol.xml
+C:\bin5\expcontrol.exe.config
+C:\bin5\expcontrol.exe
+C:\bin5\expcontrol.xml
+C:\software\ExpControl\obj\Release\expcontrol.frmGUI_interactive.resources
+C:\software\ExpControl\obj\Debug\expcontrol.frmGUI_interactive.resources
+C:\bin6_dec28_2010\expcontrol.exe.config
+C:\bin6_dec28_2010\expcontrol.exe
+C:\bin6_dec28_2010\expcontrol.xml
+C:\bin7_10feb2011\expcontrol.exe.config
+C:\bin7_10feb2011\expcontrol.exe
+C:\bin7_10feb2011\expcontrol.xml
+C:\software\ExpControl\obj\Release\expcontrol.frmGUI_autofill.resources
+C:\software\ExpControl\obj\Release\Interop.MSScriptControl.dll
+C:\software\ExpControl\obj\Release\expcontrol.vbproj.ResolveComReference.cache
+C:\bin8\expcontrol.exe.config
+C:\bin8\expcontrol.exe
+C:\bin8\expcontrol.xml
+C:\software\ExpControl\bin\Interop.MSScriptControl.dll
+C:\software\ExpControl\obj\Debug\Interop.MSScriptControl.dll
+C:\software\ExpControl\obj\Debug\expcontrol.vbproj.ResolveComReference.cache
+C:\software\ExpControl\obj\Debug\expcontrol.frmGUI_autofill.resources
+C:\bin9\expcontrol.exe.config
+C:\bin9\expcontrol.exe
+C:\bin9\expcontrol.xml
+C:\bin10\expcontrol.exe.config
+C:\bin10\expcontrol.exe
+C:\bin10\expcontrol.xml
+C:\bin12\expcontrol.exe.config
+C:\bin12\expcontrol.exe
+C:\bin12\expcontrol.xml
+C:\bin13\expcontrol.exe.config
+C:\bin13\expcontrol.exe
+C:\bin14\expcontrol.exe.config
+C:\bin14\expcontrol.exe
+C:\bin14\expcontrol.xml
+C:\bin15\expcontrol.exe.config
+C:\bin15\expcontrol.exe
+C:\bin15\expcontrol.xml
+C:\bin16\expcontrol.exe.config
+C:\bin16\expcontrol.exe
+C:\bin16\expcontrol.xml
+C:\bin17\expcontrol.exe.config
+C:\bin17\expcontrol.exe
+C:\bin17\expcontrol.xml
+C:\bin18\expcontrol.exe.config
+C:\bin18\expcontrol.exe
+C:\bin18\expcontrol.xml
+C:\software\controldll\controldll\bin\Debug\expcontrol.exe.config
+C:\bin20\expcontrol.exe.config
+C:\bin20\expcontrol.exe
+C:\bin20\expcontrol.xml
+C:\software\bin21\expcontrol.exe.config
+C:\bin21\expcontrol.exe.config
+C:\bin21\expcontrol.exe
+C:\bin21\expcontrol.xml
+C:\bin22\expcontrol.exe.config
+C:\bin22\expcontrol.exe
+C:\bin22\expcontrol.xml
+C:\bin23\expcontrol.exe.config
+C:\bin23\expcontrol.exe
+C:\bin23\expcontrol.xml
+C:\bin24\expcontrol.exe.config
+C:\bin24\expcontrol.exe
+C:\bin24\expcontrol.xml
+C:\bin25\expcontrol.exe.config
+C:\bin25\expcontrol.exe
+C:\bin25\expcontrol.xml
+C:\bin26\expcontrol.exe.config
+C:\bin26\expcontrol.exe
+C:\bin26\expcontrol.xml
+C:\bin27\expcontrol.exe.config
+C:\bin27\expcontrol.exe
+C:\bin27\expcontrol.xml

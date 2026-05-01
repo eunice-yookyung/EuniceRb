@@ -1,0 +1,16 @@
+*** This file records the changes made to the code in the controldll folder *****
+
+*** 2 April 2009 ******
+
+- Add new class KeithleyGenerator for controlling single function generator
+- Add new class KeithleyControl to control many instances of KeithleyGenerator
+- Analog addition waveforms included are : AddStep, AddExpAndRamp, AddRamp, AddSmoothRamp, AddExp, AddFromFile
+
+*** 3 April 2009
+- Modified Keithley classes to allow running from code
+
+*** 15 June 2009
+- Corrected KeithleyControl to allow running of multiple keithleys
+
+*** 12 September 2009
+- Changed IP address in class ControlParams. No longer require both computers to have the same IP address

@@ -1,0 +1,12 @@
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\obj\x86\Debug\controldll.Resources.resources
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\obj\x86\Debug\controldll.vbproj.GenerateResource.Cache
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\obj\x86\Debug\controldll.dll.licenses
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\bin\x86\Debug\controldll.dll
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\bin\x86\Debug\controldll.pdb
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\bin\x86\Debug\controldll.xml
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\obj\x86\Debug\controldll.dll
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\obj\x86\Debug\controldll.xml
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\obj\x86\Debug\controldll.pdb
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\bin\x86\Debug\NationalInstruments.MeasurementStudio.dll
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\bin\x86\Debug\NationalInstruments.MeasurementStudio.Tools.Visa.dll
+C:\Users\greinerlab\Documents\GitHub\RbRepository\software\exp_control\controldll\controldll\obj\x86\Debug\controldll.vbprojResolveAssemblyReference.cache

@@ -1,0 +1,3 @@
+gauge_power -6
+gauge_ttl on
+gaugefield_shutter on

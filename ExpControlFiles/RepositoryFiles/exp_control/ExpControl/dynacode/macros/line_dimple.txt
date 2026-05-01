@@ -1,0 +1,3 @@
+dimple_shutter on
+dimple_ttl on
+dimple_power 6

@@ -1,0 +1,3 @@
+Z:\Eunice\ExpControlFiles\obj\Debug\expcontrol.vbproj.AssemblyReference.cache
+Z:\Eunice\ExpControlFiles\obj\Debug\Interop.MSScriptControl.dll
+Z:\Eunice\ExpControlFiles\obj\Debug\expcontrol.vbproj.ResolveComReference.cache

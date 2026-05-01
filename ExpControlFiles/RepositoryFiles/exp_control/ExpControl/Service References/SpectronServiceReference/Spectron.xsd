@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.135:8000/SpectronService/Spectron?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System" />
+  <xs:element name="configure_653x">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="deviceName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="trigger" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="clock" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="total_cycles" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="configure_653xResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="configure_653xResult" type="q1:IntPtr" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="initialize_data">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="total_cycles" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="initialize_dataResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="transpose_data">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="transpose_dataResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="write_to_653x">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="taskHandle" type="q2:IntPtr" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="write_to_653xResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="write_to_653xResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="release_data">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="taskHandle" type="q3:IntPtr" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="release_dataResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="insert_linear_ramp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="t_start" type="xs:double" />
+        <xs:element minOccurs="0" name="t_stop" type="xs:double" />
+        <xs:element minOccurs="0" name="y_start" type="xs:double" />
+        <xs:element minOccurs="0" name="y_stop" type="xs:double" />
+        <xs:element minOccurs="0" name="dat_chan" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="insert_linear_rampResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="insert_sine">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="t_start" type="xs:double" />
+        <xs:element minOccurs="0" name="t_stop" type="xs:double" />
+        <xs:element minOccurs="0" name="amp" type="xs:double" />
+        <xs:element minOccurs="0" name="freq" type="xs:double" />
+        <xs:element minOccurs="0" name="offset" type="xs:double" />
+        <xs:element minOccurs="0" name="dat_chan" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="insert_sineResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Add">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="n1" type="xs:double" />
+        <xs:element minOccurs="0" name="n2" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddResult" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

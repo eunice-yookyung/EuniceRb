@@ -1,0 +1,3 @@
+red_dipole_power 6
+anticonfin_ttl on
+anticonfin_shutter on

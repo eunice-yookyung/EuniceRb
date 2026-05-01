@@ -1,0 +1,3 @@
+slm_power 7
+slm_ttl on
+slm_shutter on
