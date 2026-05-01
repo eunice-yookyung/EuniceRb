@@ -1,4 +1,4 @@
-﻿axial_calib_depth=143
+axial_calib_depth=143
 axial_calib_volt=3.54
 axial_molasses_volt= -5.5
 axial_molasses_voltage_bright= -1

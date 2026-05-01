@@ -1,0 +1,173 @@
+2023_11_22_mot_imaging/bec_movement_subroutines_reduced_current_upgrade/bec_movement_subroutines_reduced_current_upgrade.vb
+
+Parameter setup
+  -> set TOF and shutter timing
+
+MOT creation
+  -> AddMOTSequenceUpgrade
+  -> get MOT_end_time
+
+Transport
+  -> AddTransportSequence
+  -> get transport_end_time
+
+Evaporation
+  -> AddEvaporationSequenceWithEvapTimeAsVariable
+  -> get evaporation_end_time
+
+Derived times
+  -> compute move end, release time, imaging time
+
+Imaging
+  -> AddAbsorptionImagingSequenceUpgrade
+  -> set last_time
+
+Digital outputs
+  -> shutters
+  -> current supply logic
+  -> coil/FET enables
+  -> shunts
+  -> imaging shutter
+  -> scope trigger
+
+Analog outputs
+  -> hold cigar trap current
+  -> ramp transport/QUIC/imaging coils
+  -> hold final values until release
+
+% -------------------------------------------------------------------------------------------
+SET user-adjustable parameters
+    free_var = 30
+    new_shutter_offset_time = 2.5
+    evap_time = 25000
+    new_TOF = 10
+    final_time_delay = 5000
+
+APPLY run settings
+    TOF = new_TOF
+    shutter_offset_time = new_shutter_offset_time
+
+
+INITIAL HARDWARE SETUP
+    Add pulse on clock_resynch
+    Disable clock distribution briefly on analog boards
+
+
+MOT CREATION
+    MOT_end_time = AddMOTSequenceUpgrade(start=0, ...)
+    transport_start_time = MOT_end_time
+
+
+TRANSPORT
+    transport_end_time = AddTransportSequence(start=transport_start_time, ...)
+
+
+EVAPORATION
+    evaporation_end_time =
+        AddEvaporationSequenceWithEvapTimeAsVariable(start=transport_end_time, ...)
+
+
+DEFINE KEY TIMES
+    vertical_move_end_time = evaporation_end_time + cigar_move_time
+    IT = evaporation_end_time + cigar_move_time + hold_time + TOF
+    releaseTime = IT - TOF
+
+Meaning:
+    - after evaporation, move the atoms
+    - hold them in final position
+    - release them at releaseTime
+    - image them after TOF at time IT
+
+
+ABSORPTION IMAGING
+    ghetto_fix_start_time = AddAbsorptionImagingSequenceUpgrade(start=IT, ...)
+    ghetto_fix_end_time = ghetto_fix_start_time + final_time_delay
+    last_time = ghetto_fix_end_time
+
+
+OPTIONAL LATTICE ALIGNMENT
+    currently commented out
+
+
+DIGITAL OUTPUTS: GLOBAL / SHUTTERS / SUPPLIES
+    Keep MOT low current active from transport_start_time to last_time
+    Close TA shutter from transport_start_time to last_time
+    Control repump shutter in two windows:
+        - on from transport_start_time to IT - 35
+        - on again from IT to last_time
+
+Purpose:
+    set optical/shutter states correctly through transport, trap, and imaging
+
+
+DIGITAL OUTPUTS: MAGNETIC HARDWARE ENABLES
+    From evaporation_end_time to releaseTime:
+        enable offset_fet
+        enable bias_enable
+        keep transport_13 on
+        enable ps5_enable
+        enable ioffe_mirror_fet
+        enable quad_shim
+        enable imaging_coil
+
+    Near release:
+        pulse ps5_shunt from releaseTime to releaseTime + 100
+        pulse ps7_shunt from releaseTime to releaseTime + 100
+        pulse ps4_shunt from evaporation_end_time to releaseTime + 200
+
+Purpose:
+    maintain final trap / transport field configuration until release,
+    then switch or dump currents in a controlled way
+
+
+ANALOG OUTPUTS: HOLD REDUCED CIGAR CURRENT
+    Hold ps2_ao at 2.342 * 0.8 from evaporation_end_time to releaseTime
+
+Note:
+    old value 2.342 is commented out
+    this reduced value is likely the main "reduced current upgrade"
+
+
+ANALOG OUTPUTS: MOVE ATOMS AFTER EVAPORATION
+    Over cigar_move_time, ramp these channels:
+
+    ps5_ao:
+        0 -> quic_push * ps5_scaler
+    then hold until releaseTime
+
+    ps6_ao:
+        0 -> ps6_scaler * quic_push * quic_mirror_ratio / 16 + 0.02
+    then hold until releaseTime
+
+    ps1_ao:
+        0.04 -> quad_axis_position
+    then hold until releaseTime
+
+    ps3_ao:
+        0.875 -> 0.03
+    then hold until releaseTime
+
+    ps7_ao:
+        0 -> black_coil_zed * 0.5
+    then hold until releaseTime
+
+Purpose:
+    smoothly move the trapped cloud into final imaging position,
+    then keep it there before release
+
+
+IMAGING-RELATED DIGITAL OUTPUT
+    Pulse lattice2D765_shutter from ghetto_fix_start_time to ghetto_fix_end_time
+
+
+SCOPE TRIGGER
+    scope_trigger = evaporation_end_time
+    pulse digital channel 64 from scope_trigger to scope_trigger + 10
+
+Purpose:
+    trigger oscilloscope at end of evaporation
+
+
+END OF SEQUENCE
+    sequence is considered complete at last_time
+
