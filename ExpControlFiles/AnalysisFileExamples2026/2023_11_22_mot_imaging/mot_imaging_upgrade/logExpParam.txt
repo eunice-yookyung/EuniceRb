@@ -1,0 +1,18 @@
+Experiment Log
+Z:\Data\2023\11Nov23\22\1_MOT_loading_ref\
+
+11/22/2023 10:55:52 AM
+
+Experiment Program Used:
+Z:\experiments\diagnostics\mot_imaging.vb
+
+Batch Length:  
+4
+
+==========================
+new_shutter_offset_time ,  new_TOF ,  hold_MOT ,  new_hold_time ,  
+--------------------------
+2.5,  5,  1,  1000,  
+2.5,  10,  1,  1000,  
+2.5,  15,  1,  1000,  
+2.5,  20,  1,  1000,  

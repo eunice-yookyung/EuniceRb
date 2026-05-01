@@ -1,0 +1,18 @@
+Experiment Log
+Z:\Data\2023\10Oct23\04\3_after_transport_imaging\
+
+10/4/2023 11:23:19 AM
+
+Experiment Program Used:
+Z:\experiments\diagnostics\after_transport_imaging.vb
+
+Batch Length:  
+4
+
+==========================
+compress ,  new_hold_time ,  new_TOF ,  
+--------------------------
+1,  100,  2,  
+1,  100,  4,  
+1,  100,  6,  
+1,  100,  8,  
