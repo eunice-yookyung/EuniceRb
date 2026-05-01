@@ -1,3 +1,0 @@
-lattice2D795_shutter on
-lattice2D795_ttl on
-lattice2D795_power 7

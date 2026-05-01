@@ -1,3 +1,0 @@
-probe_shutter on
-ttl_80MHz on
-ttl_133MHz on

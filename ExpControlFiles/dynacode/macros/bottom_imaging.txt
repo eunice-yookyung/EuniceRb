@@ -1,3 +1,0 @@
-polarizer_shutter_22 on
-ttl_80MHz on
-imaging2aom on

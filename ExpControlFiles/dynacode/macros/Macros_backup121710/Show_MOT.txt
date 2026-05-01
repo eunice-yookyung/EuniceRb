@@ -1,3 +1,0 @@
-ta_shutter on
-repump_shutter on
-mot_low_current on

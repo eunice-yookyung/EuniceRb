@@ -1,3 +1,0 @@
-round_dimple_shutter on
-round_dimple_ttl on
-round_dimple_power 4.5
