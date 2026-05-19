@@ -1,5 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11723.231 stable
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "expcontrol", "expcontrol.vbproj", "{EAEAD871-F2F7-4B38-B5E4-57862ED48141}"
 EndProject
 Global
@@ -10,8 +12,8 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EAEAD871-F2F7-4B38-B5E4-57862ED48141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAEAD871-F2F7-4B38-B5E4-57862ED48141}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAEAD871-F2F7-4B38-B5E4-57862ED48141}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EAEAD871-F2F7-4B38-B5E4-57862ED48141}.Debug|Any CPU.Build.0 = Debug|x86
 		{EAEAD871-F2F7-4B38-B5E4-57862ED48141}.Debug|x86.ActiveCfg = Debug|x86
 		{EAEAD871-F2F7-4B38-B5E4-57862ED48141}.Debug|x86.Build.0 = Debug|x86
 		{EAEAD871-F2F7-4B38-B5E4-57862ED48141}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -2,7 +2,8 @@ Imports controldll
 Imports System.ServiceModel
 Imports System.Threading
 Imports System.Diagnostics
-Imports controldll.SpectronServiceReference
+'Imports controldll.SpectronServiceReference
+Imports expcontrol.SpectronServiceReference
 Imports System.IO
 
 Module modMain

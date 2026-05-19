@@ -1,0 +1,192 @@
+% Demo script: generate a fake Zernike phase map and fit it
+% Assumes you already have these functions on your MATLAB path:
+%  fitZernike.m
+%  zernikePolynomial.m
+%  zernikeRadial.m
+
+clear; close all; clc;
+
+% Parameters
+Nx = 256;
+Ny = 256;
+
+nOrderOriginal = 3;   % highest radial order used to generate fake phase
+nOrderFit = nOrderOriginal;        % highest radial order used for fitting
+
+cx = 140;
+cy = 118;
+radius = 90;
+
+center = [cy cx];
+
+noiseStd = .03;
+
+% Coordinate grid
+[xx, yy] = meshgrid(1:Nx, 1:Ny);
+
+x = (xx - center(2)) / radius;
+y = (yy - center(1)) / radius;
+
+rho = sqrt(x.^2 + y.^2);
+theta = atan2(y, x);
+
+pupilMask = rho <= 1;
+
+% Make a fake phase map from random known Zernike terms
+phaseTrue = zeros(Ny, Nx);
+
+% Choose all true modes up to nOrderOriginal
+trueModes = [];
+
+for n = 0:nOrderOriginal
+    for m = -n:2:n
+        trueModes = [trueModes; n, m]; %#ok<AGROW>
+    end
+end
+
+% Random coefficients with higher radial orders attenuated
+coeffScale = 0.5;
+
+attenuationPower = 2;  % larger value suppresses high orders more strongly
+
+radialOrders = trueModes(:, 1);
+
+orderWeights = 1 ./ (radialOrders + 1).^attenuationPower;
+
+randomCoeffs = coeffScale * orderWeights .* randn(size(trueModes, 1), 1);
+% Alternative: uniform random coefficients in [-coeffScale, +coeffScale]
+% randomCoeffs = coeffScale * (2 * rand(size(trueModes, 1), 1) - 1);
+
+% Each row is [n, m, coefficient]
+trueTerms = [trueModes, randomCoeffs];
+
+for k = 1:size(trueTerms, 1)
+    n = trueTerms(k, 1);
+    m = trueTerms(k, 2);
+    c = trueTerms(k, 3);
+
+    Z = zernikePolynomial(n, m, rho, theta, true);
+    phaseTrue = phaseTrue + c * Z;
+end
+
+% Mask outside the aperture
+phaseTrue(~pupilMask) = NaN;
+
+% Add optional noise
+rng(1);
+
+phaseNoisy = phaseTrue;
+phaseNoisy(pupilMask) = phaseNoisy(pupilMask) + noiseStd * randn(nnz(pupilMask), 1);
+
+% Fit Zernike coefficients
+[coeffs, modes, phaseFit, residual, fitMask] = fitZernike( ...
+    phaseNoisy, ...
+    nOrderFit, ...
+    'Mask', pupilMask, ...
+    'Center', center, ...
+    'Radius', radius, ...
+    'Normalize', true);
+
+% Print original and recovered coefficients side by side
+fprintf('\nZernike coefficient comparison:\n');
+fprintf('----------------------------------------------------\n');
+fprintf('%5s %5s %14s %14s %14s\n', ...
+    'n', 'm', 'true coeff', 'fit coeff', 'error');
+fprintf('----------------------------------------------------\n');
+
+for j = 1:size(modes, 1)
+    n = modes(j, 1);
+    m = modes(j, 2);
+
+    trueCoeff = 0;
+
+    idx = trueTerms(:, 1) == n & trueTerms(:, 2) == m;
+
+    if any(idx)
+        trueCoeff = trueTerms(idx, 3);
+    end
+
+    fitCoeff = coeffs(j);
+    coeffError = fitCoeff - trueCoeff;
+
+    fprintf('%5d %5d %14.6f %14.6f %14.6f\n', ...
+        n, m, trueCoeff, fitCoeff, coeffError);
+end
+
+fprintf('----------------------------------------------------\n');
+
+% Prepare coefficient arrays for plotting
+trueCoeffs = zeros(size(coeffs));
+
+for j = 1:size(modes, 1)
+    n = modes(j, 1);
+    m = modes(j, 2);
+
+    idx = trueTerms(:, 1) == n & trueTerms(:, 2) == m;
+
+    if any(idx)
+        trueCoeffs(j) = trueTerms(idx, 3);
+    end
+end
+
+coeffError = trueCoeffs - coeffs;
+
+modeLabels = strings(size(modes, 1), 1);
+
+for j = 1:size(modes, 1)
+    modeLabels(j) = sprintf('(%d,%+d)', modes(j, 1), modes(j, 2));
+end
+
+% Plot original, fitted, residual, coefficients, and coefficient error
+figure;
+
+tiledlayout(2, 6, 'TileSpacing', 'compact', 'Padding', 'compact');
+
+nexttile(1, [1, 2])
+imagesc(phaseNoisy);
+axis image off;
+colorbar;
+title(sprintf('Original / noisy phase (up to order %d)', nOrderOriginal));
+
+nexttile(3, [1, 2])
+imagesc(phaseFit);
+axis image off;
+colorbar;
+title('Zernike fit');
+
+nexttile(5, [1, 2])
+imagesc(residual);
+axis image off;
+colorbar;
+
+residVec = residual(fitMask);
+
+rss = sum(residVec.^2, 'omitnan');
+rmsResidual = sqrt(mean(residVec.^2, 'omitnan'));
+pvResidual = max(residVec, [], 'omitnan') - min(residVec, [], 'omitnan');
+
+title(sprintf('Residual: RSS = %.3g, RMS = %.3g', rss, rmsResidual));
+
+nexttile(7, [1, 3]);
+bar([trueCoeffs, coeffs]);
+grid on;
+xlabel('Zernike mode');
+ylabel('Coefficient');
+title('True vs fitted coefficients');
+legend({'True', 'Fit'}, 'Location', 'best');
+xticks(1:numel(coeffs));
+xticklabels(modeLabels);
+xtickangle(90);
+
+nexttile(10, [1, 3])
+bar(coeffError);
+grid on;
+xlabel('Zernike mode');
+ylabel('True - fit');
+title('Coefficient error');
+xticks(1:numel(coeffs));
+xticklabels(modeLabels);
+xtickangle(90);
+
+sgtitle(sprintf('Zernike fit up to radial order %d', nOrderFit));
+

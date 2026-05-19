@@ -109,7 +109,7 @@ Public Class clsInteractive
     'Public Sub digitalWrite2(ByVal channel As Integer, ByVal state As Integer)
     '    digitalstate2 = interactiveDigital2.InteractiveWrite(digitalstate2, channel, state)
     '    Dim x As Short = 1
-    '    digitalstate = interactiveDigital.InteractiveWrite(digitalstate, 1, (digitalstate(0) And x))
+    '    digitalstate = interactiveDigital.Interacti veWrite(digitalstate, 1, (digitalstate(0) And x))
     'End Sub
 
     'Public Sub analogWrite2(ByVal channel As Integer, ByVal val As Double)

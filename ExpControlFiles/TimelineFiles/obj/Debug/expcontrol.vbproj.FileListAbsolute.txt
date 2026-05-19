@@ -1,3 +1,12 @@
 Z:\Eunice\ExpControlFiles\obj\Debug\expcontrol.vbproj.AssemblyReference.cache
 Z:\Eunice\ExpControlFiles\obj\Debug\Interop.MSScriptControl.dll
 Z:\Eunice\ExpControlFiles\obj\Debug\expcontrol.vbproj.ResolveComReference.cache
+C:\Users\eunic\EuniceRb\ExpControlFiles\TimelineFiles\obj\Debug\expcontrol.vbproj.AssemblyReference.cache
+C:\Users\eunic\EuniceRb\ExpControlFiles\TimelineFiles\obj\Debug\Interop.MSScriptControl.dll
+C:\Users\eunic\EuniceRb\ExpControlFiles\TimelineFiles\obj\Debug\expcontrol.vbproj.ResolveComReference.cache
+C:\Users\eunic\EuniceRb\ExpControlFiles\TimelineFiles\obj\Debug\expcontrol.frmGUI.resources
+C:\Users\eunic\EuniceRb\ExpControlFiles\TimelineFiles\obj\Debug\expcontrol.frmGUI_autofill.resources
+C:\Users\eunic\EuniceRb\ExpControlFiles\TimelineFiles\obj\Debug\expcontrol.frmGUI_interactive.resources
+C:\Users\eunic\EuniceRb\ExpControlFiles\TimelineFiles\obj\Debug\expcontrol.Resources.resources
+C:\Users\eunic\EuniceRb\ExpControlFiles\TimelineFiles\obj\Debug\expcontrol.vbproj.GenerateResource.cache
+C:\Users\eunic\EuniceRb\ExpControlFiles\TimelineFiles\obj\Debug\expcontrol.vbproj.CoreCompileInputs.cache

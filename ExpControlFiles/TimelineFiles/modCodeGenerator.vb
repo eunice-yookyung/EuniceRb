@@ -1,7 +1,8 @@
 Imports System.Text.RegularExpressions
 Imports System.IO
 Imports controldll
-Imports controldll.SpectronServiceReference
+'Imports controldll.SpectronServiceReference
+Imports expcontrol.SpectronServiceReference
 Imports System.Collections.Generic
 Imports System.Reflection
 
