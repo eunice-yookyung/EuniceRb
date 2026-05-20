@@ -19,7 +19,7 @@ radius = Nx/2 * .9;
 
 center = [cy cx];
 
-noiseStd = .2;
+noiseStd = .01;
 
 % Coordinate grid
 x_ = 1:Nx;
@@ -37,7 +37,8 @@ theta = atan2(Y, X);
 pupilMask = rho <= 1;
 
 % Make a fake phase map from random known Zernike terms
-phaseTrue = zeros(Ny, Nx);
+DPhaseTrue = zeros(Ny, Nx);
+phaseTrue = zeros(Ny, Nx); % zernike phase map, original
 
 % Choose all true modes up to nOrderOriginal
 trueModes = [];
@@ -69,27 +70,43 @@ for k = 1:size(trueTerms, 1)
     m = trueTerms(k, 2);
     c = trueTerms(k, 3);
 
-    Z = zernikePolynomial(n, m, rho, theta, true);
+    [Zx, Zy] = zernikePolynomialDerivative(n, m, rho, theta, true);
+    Z = zernikePolynomialDerivative(n, m, rho, theta, true);
+    DPhaseTrue = DPhaseTrue + c * Zx;
     phaseTrue = phaseTrue + c * Z;
 end
 
 % Mask outside the aperture
+DPhaseTrue(~pupilMask) = NaN;
 phaseTrue(~pupilMask) = NaN;
 
 % Add optional noise
-rng(1);
+% rng(1);
 
-phaseNoisy = phaseTrue;
-phaseNoisy(pupilMask) = phaseNoisy(pupilMask) + noiseStd * randn(nnz(pupilMask), 1);
+DPhaseNoisy = DPhaseTrue;
+DPhaseNoisy(pupilMask) = DPhaseNoisy(pupilMask) + noiseStd * randn(nnz(pupilMask), 1);
 
 % Fit Zernike coefficients
-[coeffs, modes, phaseFit, residual, fitMask] = fitZernike( ...
-    phaseNoisy, ...
+[coeffs, modes, DPhaseFit, residual, fitMask] = fitZernikeDerivative( ...
+    DPhaseNoisy, ...
     nOrderFit, ...
     'Mask', pupilMask, ...
     'Center', center, ...
     'Radius', radius, ...
     'Normalize', true);
+
+fittedTerms = trueTerms;
+fittedTerms(:, 3) = coeffs;
+phaseFit = 0;
+for k = 1:size(fittedTerms, 1)
+    n = fittedTerms(k, 1);
+    m = fittedTerms(k, 2);
+    c = fittedTerms(k, 3);
+
+    Z = zernikePolynomial(n, m, rho, theta, true);
+    phaseFit = phaseFit + c * Z;
+end
+phaseFit(~pupilMask) = NaN;
 
 % Print original and recovered coefficients side by side
 fprintf('\nZernike coefficient comparison:\n');
@@ -150,21 +167,20 @@ y0_cut = -.3;
 [~, iy_cut] = min(abs(y - y0_cut));
 
 % Extract horizontal cuts: y = y0_cut
-phase_true_xcut = phaseTrue(iy_cut, :);
-phase_fit_xcut  = phaseFit(iy_cut, :);
+phase_true_xcut = DPhaseTrue(iy_cut, :);
+phase_fit_xcut  = DPhaseFit(iy_cut, :);
 
 % Extract vertical cuts: x = x0_cut
-phase_true_ycut = phaseTrue(:, ix_cut);
-phase_fit_ycut  = phaseFit(:, ix_cut);
-
+phase_true_ycut = DPhaseTrue(:, ix_cut);
+phase_fit_ycut  = DPhaseFit(:, ix_cut);
 
 % Pixel/grid spacing in normalized pupil coordinates
 dx = 1 / radius;
 dy = 1 / radius;
 
 % Derivatives of true and fitted phase maps
-[dphidx_true, dphidy_true] = gradient(phaseTrue, dx, dy);
-[dphidx_fit,  dphidy_fit]  = gradient(phaseFit,  dx, dy);
+[dphidx_true, dphidy_true] = gradient(DPhaseTrue, dx, dy);
+[dphidx_fit,  dphidy_fit]  = gradient(DPhaseFit,  dx, dy);
 
 % Mask outside the aperture
 dphidx_true(~pupilMask) = NaN;
@@ -178,25 +194,26 @@ dphidx_true_xcut = dphidx_true(iy_cut, :);
 dphidy_fit_ycut = dphidy_fit(:, ix_cut);
 dphidx_fit_xcut = dphidx_fit(iy_cut, :);
 
+
 % Plot original, fitted, residual, coefficients, and coefficient error
 figure;
 
-tiledlayout(4, 6, 'TileSpacing', 'compact', 'Padding', 'compact');
+tiledlayout(3, 6, 'TileSpacing', 'compact', 'Padding', 'compact');
 
 nexttile(1, [1, 2])
-imagesc(x, y, phaseNoisy);
+imagesc(x, y, DPhaseNoisy);
 hold on
 xline(x0_cut, '-w', 'linewidth', 1), yline(y0_cut, '-w', 'linewidth', 1)
 axis image;
 colorbar;
-title(sprintf('Original / noisy phase (up to order %d)', nOrderOriginal));
+title(sprintf('Original / noisy phase gradient (up to order %d)', nOrderOriginal));
 
 nexttile(3, [1, 2])
-imagesc(x, y, phaseFit);
+imagesc(x, y, DPhaseFit);
 hold on, xline(x0_cut, '-w', 'linewidth', 1), yline(y0_cut, '-w', 'linewidth', 1)
 axis image off;
 colorbar;
-title('Zernike fit');
+title('Zernike gradient fit');
 
 nexttile(5, [1, 2])
 imagesc(residual);
@@ -211,7 +228,28 @@ pvResidual = max(residVec, [], 'omitnan') - min(residVec, [], 'omitnan');
 
 title(sprintf('Residual: RSS = %.3g, RMS = %.3g', rss, rmsResidual));
 
-nexttile(7, [1, 3]);
+nexttile(7,[1,2])
+imagesc(x, y, phaseTrue);
+hold on, xline(x0_cut, '-w', 'linewidth', 1), yline(y0_cut, '-w', 'linewidth', 1)
+axis image off;
+colorbar;
+title('True phase');
+
+nexttile(9,[1,2])
+imagesc(x, y, phaseFit);
+hold on, xline(x0_cut, '-w', 'linewidth', 1), yline(y0_cut, '-w', 'linewidth', 1)
+axis image off;
+colorbar;
+title('Resulting phase');
+
+nexttile(11,[1,2])
+imagesc(x, y, phaseTrue - phaseFit);
+hold on, xline(x0_cut, '-w', 'linewidth', 1), yline(y0_cut, '-w', 'linewidth', 1)
+axis image off;
+colorbar;
+title('Phase residuals');
+
+nexttile(13, [1, 3]);
 bar([trueCoeffs, coeffs]);
 grid on;
 xlabel('Zernike mode');
@@ -222,7 +260,7 @@ xticks(1:numel(coeffs));
 xticklabels(modeLabels);
 xtickangle(90);
 
-nexttile(10, [1, 3])
+nexttile(16, [1, 3])
 bar(coeffError);
 grid on;
 xlabel('Zernike mode');
@@ -232,84 +270,5 @@ xticks(1:numel(coeffs));
 xticklabels(modeLabels);
 xtickangle(90);
 
-% Horizontal phase cut
-nexttile(13,[1,3])
-plot(x, phase_true_xcut, 'k-', 'LineWidth', 2); hold on;
-plot(x, phase_fit_xcut, 'r--', 'LineWidth', 2);
-grid on;
-xlabel('x');
-ylabel('\phi');
-title(sprintf('Horizontal phase cut at y = %.3f', y(iy_cut)));
-legend('True', 'Fit', 'Location', 'best');
-
-% Vertical phase cut
-nexttile(16,[1,3])
-plot(y, phase_true_ycut, 'k-', 'LineWidth', 2); hold on;
-plot(y, phase_fit_ycut, 'r--', 'LineWidth', 2);
-grid on;
-xlabel('y');
-ylabel('\phi');
-title(sprintf('Vertical phase cut at x = %.3f', x(ix_cut)));
-legend('True', 'Fit', 'Location', 'best');
-
-% Horizontal derivative cut
-nexttile(19, [1,3])
-plot(x_, dphidx_true_xcut, 'k-', 'LineWidth', 2); hold on;
-plot(x_, dphidx_fit_xcut, 'r--', 'LineWidth', 2);
-grid on;
-xlabel('x');
-ylabel('\partial\phi / \partial x');
-title(sprintf('Horizontal derivative cut at y = %.3f', y(iy_cut)));
-legend('True', 'Fit', 'Location', 'best');
-
-% Vertical derivative cut
-nexttile(22, [1,3])
-plot(y_, dphidy_true_ycut, 'k-', 'LineWidth', 2); hold on;
-plot(y_, dphidy_fit_ycut, 'r--', 'LineWidth', 2);
-grid on;
-xlabel('y');
-ylabel('\partial\phi / \partial y');
-title(sprintf('Vertical derivative cut at x = %.3f', x(ix_cut)));
-legend('True', 'Fit', 'Location', 'best');
-
-
 sgtitle(sprintf('Zernike fit up to radial order %d', nOrderFit));
 colormap(viridis)
-
-%%
-% Example Zernike mode
-n = 3;
-m = 1;
-c = 0.75;
-normalized = true;
-
-Z = c * zernikePolynomial(n, m, rho, theta, normalized);
-[Zx, Zy] = zernikePolynomialDerivative(n, m, rho, theta, normalized);
-
-Zx = c * Zx;
-Zy = c * Zy;
-
-Z(~pupilMask)  = NaN;
-Zx(~pupilMask) = NaN;
-Zy(~pupilMask) = NaN;
-
-figure;
-tiledlayout(2,3,'TileSpacing','compact','Padding','compact');
-
-nexttile;
-imagesc(Z);
-axis image off;
-colorbar;
-title(sprintf('Zernike Z_{%d}^{%+d}', n, m));
-
-nexttile;
-imagesc(Zx);
-axis image off;
-colorbar;
-title('\partial Z / \partial x');
-
-nexttile;
-imagesc(Zy);
-axis image off;
-colorbar;
-title('\partial Z / \partial y');
