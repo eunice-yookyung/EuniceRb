@@ -1,0 +1,10 @@
+% rf plot
+
+is_pdf = 0; % 0 = jpg, 1 = pdf
+folder = 'damop_plots';
+rfplot_damop();
+fig = gcf;
+fig2pdf(fig, sprintf('%s/fig_rf_process', folder), is_pdf)
+
+%% -------------------
+% harmonic oi
