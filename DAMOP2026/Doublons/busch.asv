@@ -1,0 +1,30 @@
+% busch wavefunctions
+
+E = -1:.01:7/2; a = E2a(E);
+figure, plot(-1./a, E, '-k')
+
+%%
+figure('Units','inches','Position',[2,2,5,5]),
+r = 0.01:.01:5;
+
+colors = inferno;
+colors = colors(1:)
+
+for anm = [0.01, -40, 20, 70]
+    aosc = 100; a = anm / aosc; E = a2E(a); v = 0.5 * (E - 3/2); 
+    psi = exp(-r.^2 / 2) * gamma(-v) .* kummerU(-v, 3/2, r.^2);
+    y = 4 * pi * r.^2 .* abs(psi).^2;
+    ynorm = trapz(r, y);
+    y = y / ynorm;
+    plot(r, y, 'linewidth', 2), hold on
+end
+
+function a = E2a(E)
+a = (sqrt(2) * gamma(-E/2 + 3/4) ./ gamma(-E/2 + 1/4)).^(-1);
+end
+
+function E0 = a2E(a0)
+E = 0.51:.01:2.49;
+a = (sqrt(2) * gamma(-E/2 + 3/4) ./ gamma(-E/2 + 1/4)).^(-1);
+E0 = interp1(a, E, a0);
+end

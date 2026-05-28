@@ -49,7 +49,7 @@ panel_label_loc = [0, 1, 1, 1];
 
 % Physical figure dimensions [width, height] in inches
 % hor_fig_dim  = [3.5, 3.0];   % used for horizontal (1×2) layouts
-hor_fig_dim  = [3.5*2, 2.50];   % used for horizontal (1×2) layouts
+hor_fig_dim  = [3.5*1, 2.50];   % used for horizontal (1×2) layouts
 vert_fig_dim = [3.5, 4.5];   % used for vertical  (2×1) layouts
 % vert_fig_dim = [2.5, 4.5];   % used for vertical  (2×1) layouts
 

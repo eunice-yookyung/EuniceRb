@@ -1,10 +1,10 @@
 % rf plot, for experiment
 
-is_pdf = 0; % 0 = jpg, 1 = pdf
+is_pdf = 1; % 0 = jpg, 1 = pdf
 folder = 'damop_plots';
 rfplot_damop();
 fig = gcf;
-fig2pdf(fig, sprintf('%s/fig_rf_process', folder), is_pdf)
+fig2pdf(fig, sprintf('%s/fig_rf_process_singlon', folder), is_pdf)
 %%
 n = 2;
 [tileObj, data, files] = plot_csv_data_damop(2);
@@ -24,16 +24,20 @@ ax.Children(2).XData(end)=nan;
 h = figure;
 set(h, 'Units', 'inches', 'Position', [2, 2, 3.5, 3.5])
 black = [0,0,0];
+darkRed= red * .9;
 col = [black; red];
-for i = [3,5]
+for i = [5,3]
     errorbar(data{i}.hole_frac(1:end-1), data{i}.(2)(1:end-1), data{i}.(3)(1:end-1), ...
         '.', 'capsize', 0, 'linewidth', 1, 'markerSize', 10)
     hold on
 end
-for i = 2
-    plot(data{i}.hole_frac, data{i}.singlon_dark_fullySuppressedHoles_)
+for i = 1:2
+    plot(data{2}.hole_frac, data{2}.(i+1), 'LineWidth', 1)
 end
-
+set(gca, 'ColorOrder', [black;darkRed;black;darkRed])
+ylim([-.1,2.1]), yticks(0:.5:2)
+text(.4,.2,'Singlon','Color','k'), text(.4,1.5,'Doublon','Color',darkRed), xlabel('Hole fraction'), ylabel('Normalized elastic scattering')
+fig2pdf(h, sprintf('%s/dicke', folder), is_pdf)
 
 %% -------------------
 % harmonic oscillator
@@ -77,3 +81,44 @@ fig2pdf(fig, sprintf('%s/pulse_duration', folder), is_pdf)
 nexttile(2); text(-40,.25,'Singlons', 'Color', 'k'), text(-40,1.0,'Theory', 'Color', red), text(10,1.0,'Doublons', 'Color', dark)
 nexttile(1); legend(['0 ' mychar('mu') 's'],'','','',['3.3 ' mychar('mu') 's'])
 fig2pdf(fig, sprintf('%s/scattering_length', folder), is_pdf)
+
+%% resonantly ejected radial
+close all
+
+r = linspace(1e-3,.7,1e3);
+w0 = 50;
+veg = 1 ./ r.^3 + w0;
+vgg = -1 ./ r.^2 * 1e-4;
+lw = 2;
+red = [1,.5,.5];
+red = red * .8;
+dark = red * .5;
+black = [0,0,0];
+
+figure('Units','inches','Position',[1,1,2.5,7])
+t = tiledlayout(3,1,'TileSpacing','compact','Padding','compact');
+for delta = [43, 86, 190]
+
+    x0 = interp1(veg, r, delta + w0);
+
+    nexttile
+    
+    % energy levels
+    plot(r, veg, 'LineWidth', lw, 'Color', red), hold on, plot(r, vgg, 'LineWidth', lw, 'Color', black)
+
+    % references
+    plot(r, 0 * r + w0, ':', 'LineWidth', lw/2, 'Color', black), plot(r, 0 * r + w0 + delta, ':', 'LineWidth', lw/2, 'Color', black)
+    plot(x0 * [1,1], w0 + [0, delta], '-k', 'linewidth', lw/2)
+    
+    % labels
+    text(x0+.01, w0 + delta/3, '\delta')
+    text(mean([.1, max(r)]), mean(vgg), ['|gg' mychar('rangle')], 'HorizontalAlignment', 'center', 'VerticalAlignment','top')
+    text(.21, 200, ['|ge' mychar('rangle') ' + ' '|eg' mychar('rangle')], 'HorizontalAlignment', 'left', 'VerticalAlignment','top', 'Color', red)
+    xlim([.1,max(r)]), ylim([-50, 260]), xticklabels([]), yticklabels([]), set(gca, '')
+    ylabel('Interaction Strength')
+    title(sprintf('Detuning = %d MHz', delta))
+
+    
+end
+
+xlabel('Relative Distance'), %ylabel(t, 'Interaction Strength')

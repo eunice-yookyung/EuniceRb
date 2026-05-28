@@ -1,10 +1,10 @@
 % rf plot, for experiment
 
-is_pdf = 0; % 0 = jpg, 1 = pdf
+is_pdf = 1; % 0 = jpg, 1 = pdf
 folder = 'damop_plots';
 rfplot_damop();
 fig = gcf;
-fig2pdf(fig, sprintf('%s/fig_rf_process', folder), is_pdf)
+fig2pdf(fig, sprintf('%s/fig_rf_process_singlon', folder), is_pdf)
 %%
 n = 2;
 [tileObj, data, files] = plot_csv_data_damop(2);
@@ -81,3 +81,90 @@ fig2pdf(fig, sprintf('%s/pulse_duration', folder), is_pdf)
 nexttile(2); text(-40,.25,'Singlons', 'Color', 'k'), text(-40,1.0,'Theory', 'Color', red), text(10,1.0,'Doublons', 'Color', dark)
 nexttile(1); legend(['0 ' mychar('mu') 's'],'','','',['3.3 ' mychar('mu') 's'])
 fig2pdf(fig, sprintf('%s/scattering_length', folder), is_pdf)
+
+%% resonantly ejected radial
+close all
+
+is_pdf = 0; % 0 = jpg, 1 = pdf
+folder = 'damop_plots';
+
+r = linspace(1e-3,.7,1e3);
+w0 = 50;
+veg = 1 ./ r.^3 + w0;
+vgg = -1 ./ r.^2 * 1e-4;
+lw = 2;
+red = [1,.5,.5];
+red = red * .8;
+dark = red * .5;
+black = [0,0,0];
+
+fig_r3 = figure('Units','inches','Position',[1,1,2.5,3]);
+% t = tiledlayout(3,1,'TileSpacing','compact','Padding','compact');
+for delta = 43
+
+    x0 = interp1(veg, r, delta + w0);
+
+    nexttile
+    
+    % energy levels
+    plot(r, veg, 'LineWidth', lw, 'Color', red), hold on, plot(r, vgg, 'LineWidth', lw, 'Color', black)
+
+    % references
+    plot(r, 0 * r + w0, ':', 'LineWidth', lw/2, 'Color', black), plot(r, 0 * r + w0 + delta, ':', 'LineWidth', lw/2, 'Color', black)
+    plot(x0 * [1,1], w0 + [0, delta], '-k', 'linewidth', lw * .8)
+    
+    % labels
+    text(x0+.01, w0 + delta/3, '\delta')
+    text(mean([.1, max(r)]), mean(vgg), ['|gg' mychar('rangle')], 'HorizontalAlignment', 'center', 'VerticalAlignment','top')
+    text(.21, 200, ['|ge' mychar('rangle') ' + ' '|eg' mychar('rangle')], 'HorizontalAlignment', 'left', 'VerticalAlignment','top', 'Color', red)
+    xlim([.1,max(r)]), ylim([-50, 260]), xticklabels([]), yticklabels([]), set(gca, 'LineWidth', 1)
+    ylabel('Interaction Strength')
+    % title(sprintf('Detuning = %d MHz', delta))
+
+    
+end
+
+xlabel('Relative Distance'), %ylabel(t, 'Interaction Strength')
+fig2pdf(fig_r3, sprintf('%s/r3', folder), is_pdf)
+
+%% resonantly ejected radial
+close all
+
+r = linspace(1e-3,.7,1e3);
+w0 = 50;
+veg = 1 ./ r.^3 + w0;
+vgg = -1 ./ r.^2 * 1e-4;
+lw = 2;
+red = [1,.5,.5];
+red = red * .8;
+dark = red * .5;
+black = [0,0,0];
+
+fig_detuning = figure('Units','inches','Position',[1,1,2.5,6]);
+t = tiledlayout(3,1,'TileSpacing','compact','Padding','compact');
+for delta = [43, 86, 190]
+
+    x0 = interp1(veg, r, delta + w0);
+
+    nexttile
+    
+    % energy levels
+    plot(r, veg, 'LineWidth', lw, 'Color', red), hold on, plot(r, vgg, 'LineWidth', lw, 'Color', black)
+
+    % references
+    plot(r, 0 * r + w0, ':', 'LineWidth', lw/2, 'Color', black), plot(r, 0 * r + w0 + delta, ':', 'LineWidth', lw/2, 'Color', black)
+    plot(x0 * [1,1], w0 + [0, delta], '-k', 'linewidth', lw * .8)
+    
+    % labels
+    text(x0+.01, w0 + delta/3, '\delta')
+    text(mean([.1, max(r)]), mean(vgg), ['|gg' mychar('rangle')], 'HorizontalAlignment', 'center', 'VerticalAlignment','top')
+    text(.21, 200, ['|ge' mychar('rangle') ' + ' '|eg' mychar('rangle')], 'HorizontalAlignment', 'left', 'VerticalAlignment','top', 'Color', red)
+    xlim([.1,max(r)]), ylim([-50, 260]), xticklabels([]), yticklabels([]), set(gca, 'LineWidth', 1)
+    ylabel('Interaction Strength')
+    title(sprintf('Detuning = %d MHz', delta))
+
+    
+end
+
+xlabel('Relative Distance'), %ylabel(t, 'Interaction Strength')
+fig2pdf(fig_detuning, sprintf('%s/detuning', folder), is_pdf)

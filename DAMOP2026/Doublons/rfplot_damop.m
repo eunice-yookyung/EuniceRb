@@ -8,8 +8,8 @@ singlonSiteColor = [1,1,1] * .7;
 doublonSiteColor = [1,1,1] * .2;
 singlonSiteLinewidth = .5;
 doublonSiteLinewidth = 1;
-singlonRadius = 4.4;
-doublonRadius = 2.5;
+singlonRadius = 4.4*.8;
+doublonRadius = 2.5*0;
 atomMarker = '.';
 singlonMarkersize = 11;
 % aColor = [1, .25, .25] * 1;
@@ -30,7 +30,7 @@ triz = (0 + [1, -1,0, 1]) * tri_height;
 arrowColor = [0,0,0];
 arrowLinewidth = 1.5;
 after_rf_offset_x = 2 * ceil(singlonRadius) + 3;
-holeFraction = .5;
+holeFraction = .0;
 
 
 xl = [-ceil(singlonRadius), ceil(singlonRadius) + after_rf_offset_x];
@@ -47,7 +47,7 @@ end
 % plot singlon sites
 for x0 = round(-singlonRadius:(2*siteRadius):singlonRadius)
     for y0 = round(-singlonRadius:(2*siteRadius):singlonRadius)
-        if x0^2 + y0^2 < singlonRadius^2 && x0^2 + y0^2 > doublonRadius^2
+        if x0^2 + y0^2 < singlonRadius^2 && x0^2 + y0^2 >= doublonRadius^2
             plot(x0 + xcirc,y0 + ycirc, 'Color', singlonSiteColor, 'LineWidth', singlonSiteLinewidth)
             hold on
             plot(x0, y0, atomMarker, ...
@@ -72,7 +72,7 @@ end
 % plot singlon sites
 for x0 = round(-singlonRadius:(2*siteRadius):singlonRadius)
     for y0 = round(-singlonRadius:(2*siteRadius):singlonRadius)
-        if x0^2 + y0^2 < singlonRadius^2 && x0^2 + y0^2 > doublonRadius^2
+        if x0^2 + y0^2 < singlonRadius^2 && x0^2 + y0^2 >= doublonRadius^2
             plot(x0 + xcirc + after_rf_offset_x,y0 + ycirc, 'Color', singlonSiteColor, 'LineWidth', singlonSiteLinewidth)
             hold on
             plot(x0 + after_rf_offset_x, y0, atomMarker, ...
@@ -82,7 +82,7 @@ for x0 = round(-singlonRadius:(2*siteRadius):singlonRadius)
 end
 
 % plot doublon sites
-stays_a = rand(100, 1) > holeFraction;
+stays_a = rand(100, 1) < holeFraction;
 idoub = 0;
 for x0 = round(-singlonRadius:(2*siteRadius):singlonRadius)
     for y0 = round(-singlonRadius:(2*siteRadius):singlonRadius)
