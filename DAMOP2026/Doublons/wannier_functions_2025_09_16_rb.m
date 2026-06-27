@@ -205,7 +205,7 @@ xlabel('Lattice depth (ER)')
 ylabel('Bare on-site interaction U (Hz)')
 my_axes
 
-nexttile
+nexttile 
 plot(wannier_results.Vlat,wannier_results.Egap * ER * joules_2_Hz/1000,'or','LineWidth',1)
 hold on
 plot(Vlat_, Egap_/1000,'-k','LineWidth',1)
