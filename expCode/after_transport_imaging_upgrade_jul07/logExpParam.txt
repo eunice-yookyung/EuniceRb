@@ -1,0 +1,15 @@
+Experiment Log
+W:\Data\2026\07Jul26\7\8_aft_transport_scan_22\
+
+7/7/2026 4:00:51 PM
+
+Experiment Program Used:
+W:\Timeline\Analysis\2026_04_21_after_transport_imaging_upgrade\after_transport_imaging_upgrade\after_transport_imaging_upgrade.vb
+
+Batch Length:  
+1
+
+==========================
+compress ,  new_hold_time ,  new_TOF ,  
+--------------------------
+1,  100,  2,  

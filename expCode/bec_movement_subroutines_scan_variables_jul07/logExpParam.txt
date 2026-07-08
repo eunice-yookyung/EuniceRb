@@ -1,0 +1,15 @@
+Experiment Log
+W:\Data\2026\07Jul26\7\dummy\
+
+7/7/2026 8:18:32 PM
+
+Experiment Program Used:
+W:\Timeline\Analysis\2026_04_30_bec_imaging_scan_variables\bec_movement_subroutines_scan_variables.vb
+
+Batch Length:  
+1
+
+==========================
+free_var ,  new_shutter_offset_time ,  evap_time ,  new_compressed_mot_time ,  new_molasses_time ,  new_mot_detuning_molasses_time ,  new_rp_shutter_offset_time ,  new_optical_pumping_time ,  new_two2_pumping_time ,  if_blow_away_F2 ,  new_TOF ,  
+--------------------------
+30,  1.6,  24400,  6,  6,  25,  8,  0.2,  0.05,  1,  10,  

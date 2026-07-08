@@ -1,0 +1,23 @@
+Experiment Log
+W:\Data\2026\04Apr26\30\12_aft_transp_img_11_pwr_m14p1_dBm\
+
+4/30/2026 4:44:56 PM
+
+Experiment Program Used:
+W:\Timeline\Analysis\2026_04_21_after_transport_imaging_upgrade\after_transport_imaging_upgrade\after_transport_imaging_upgrade.vb
+
+Batch Length:  
+9
+
+==========================
+compress ,  new_hold_time ,  new_TOF ,  
+--------------------------
+1,  100,  1,  
+1,  100,  2,  
+1,  100,  3,  
+1,  100,  4,  
+1,  100,  5,  
+1,  100,  6,  
+1,  100,  7,  
+1,  100,  8,  
+1,  100,  0.5,  
