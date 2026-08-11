@@ -1,0 +1,12 @@
+GENERAL
+illumination mode full
+pattern angle 0
+defocus 0
+image plane displacement x 0
+image plane displacement y -8
+aperture 700
+Fourier plane displacement x -85
+Fourier plane displacement y -10
+arb map file: arb map name
+
+Currently Running: button_uploadFolder
